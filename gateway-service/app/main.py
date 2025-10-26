@@ -38,9 +38,12 @@ app.include_router(forward_routes.router)
 def root():
     return {"message": "Gateway Service is running 🚀"}
 
+from app.services.health_service import get_all_service_status
+
 @app.get("/health")
 async def health():
-    return {"service": "gateway", "status": "ok"}
+    return await get_all_service_status()
+
 
 @app.on_event("startup")
 async def list_routes():
