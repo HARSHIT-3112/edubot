@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes import user_routes
 from app.middleware.logging_middleware import LoggingMiddleware
 from app.middleware.auth_middleware import AuthMiddleware
-from app.routes import user_routes, forward_routes
+from app.routes import user_routes, forward_routes, health_routes
 from app.middleware.error_handler import ErrorHandlerMiddleware
 
 
@@ -31,6 +31,7 @@ app.add_middleware(AuthMiddleware)
 
 # Include routers
 app.include_router(user_routes.router)
+app.include_router(health_routes.router)
 app.include_router(forward_routes.router)
 
 @app.get("/")
