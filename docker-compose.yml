@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  gateway-service:
+    build: ./gateway-service
+    container_name: gateway-service
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./gateway-service/.env
+    depends_on:
+      - user-service
+      - document-service
+      - ai-service
+      - lang-service
+    networks:
+      - edubot-network
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "8001:8001"
+    networks:
+      - edubot-network
+
+  document-service:
+    build: ./document-service
+    container_name: document-service
+    ports:
+      - "8002:8002"
+    networks:
+      - edubot-network
+
+  ai-service:
+    build: ./ai-service
+    container_name: ai-service
+    ports:
+      - "8003:8003"
+    networks:
+      - edubot-network
+
+  lang-service:
+    build: ./lang-service
+    container_name: lang-service
+    ports:
+      - "8004:8004"
+    networks:
+      - edubot-network
+
+networks:
+  edubot-network:
+    driver: bridge
