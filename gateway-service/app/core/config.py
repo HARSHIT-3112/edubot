@@ -1,5 +1,5 @@
 
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings,SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -9,9 +9,14 @@ class Settings(BaseSettings):
     DOCUMENT_SERVICE_URL: str
     AI_SERVICE_URL: str
     LANG_SERVICE_URL: str
+    JWT_SECRET_KEY: str
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(extra="ignore", env_file=".env")
 
+    
+
+   
 # Create global settings instance
 settings = Settings()
+
+
